@@ -1,13 +1,13 @@
-// Interactive JavaScript for Vishal Chandel's Portfolio
+// Interactive JavaScript for Vishal Chandel's Portfolio (Light Nature Theme)
 
-// 1. Theme Management (Light / Dark Mode)
+// 1. Theme Management (Default Light Mode with Green Accents)
 const themeToggleBtn = document.getElementById('theme-toggle');
 const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
 
-// Check saved theme preference or system default
+// Default to Light Mode unless explicitly set to 'dark' by user
 const currentTheme = localStorage.getItem('theme');
-if (currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+if (currentTheme === 'dark') {
   document.documentElement.classList.add('dark');
   themeToggleLightIcon.classList.remove('hidden');
 } else {
@@ -19,8 +19,8 @@ themeToggleBtn.addEventListener('click', () => {
   if (document.documentElement.classList.contains('dark')) {
     document.documentElement.classList.remove('dark');
     localStorage.setItem('theme', 'light');
-    themeToggleLightIcon.classList.add('hidden');
     themeToggleDarkIcon.classList.remove('hidden');
+    themeToggleLightIcon.classList.add('hidden');
   } else {
     document.documentElement.classList.add('dark');
     localStorage.setItem('theme', 'dark');
@@ -33,15 +33,17 @@ themeToggleBtn.addEventListener('click', () => {
 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
 
-mobileMenuBtn.addEventListener('click', () => {
-  mobileMenu.classList.toggle('hidden');
-});
-
-document.querySelectorAll('#mobile-menu a').forEach(link => {
-  link.addEventListener('click', () => {
-    mobileMenu.classList.add('hidden');
+if (mobileMenuBtn && mobileMenu) {
+  mobileMenuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
   });
-});
+
+  document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+    });
+  });
+}
 
 // 3. Project Filter Tabs
 const filterBtns = document.querySelectorAll('.filter-btn');
@@ -50,12 +52,12 @@ const projectCards = document.querySelectorAll('.project-card');
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     filterBtns.forEach(b => {
-      b.classList.remove('active', 'bg-blue-600', 'text-white');
-      b.classList.add('text-slate-600', 'dark:text-slate-300');
+      b.classList.remove('active', 'bg-emerald-600', 'text-white');
+      b.classList.add('text-slate-700', 'dark:text-slate-300');
     });
 
-    btn.classList.add('active', 'bg-blue-600', 'text-white');
-    btn.classList.remove('text-slate-600', 'dark:text-slate-300');
+    btn.classList.add('active', 'bg-emerald-600', 'text-white');
+    btn.classList.remove('text-slate-700', 'dark:text-slate-300');
 
     const filterValue = btn.getAttribute('data-filter');
 
@@ -122,22 +124,22 @@ function openProjectModal(key) {
   content.innerHTML = `
     <div class="space-y-5">
       <div class="flex items-center justify-between">
-        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">${data.category}</span>
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">🍃 ${data.category}</span>
       </div>
       <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">${data.title}</h2>
       
-      <div class="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-700 dark:text-slate-300">
-        <span class="font-bold text-blue-600 dark:text-blue-400">Tech Stack:</span> ${data.techStack}
+      <div class="p-3.5 bg-emerald-50/60 dark:bg-slate-950 rounded-xl border border-emerald-200/60 dark:border-slate-800 text-xs font-mono text-slate-700 dark:text-slate-300">
+        <span class="font-bold text-emerald-700 dark:text-emerald-400">Tech Stack:</span> ${data.techStack}
       </div>
 
       <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">${data.description}</p>
       
       <div class="space-y-2">
-        <h4 class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider">Key Technical Accomplishments</h4>
+        <h4 class="text-xs font-bold uppercase text-emerald-700 dark:text-slate-400 tracking-wider">Key Technical Accomplishments</h4>
         <ul class="space-y-2 text-xs text-slate-700 dark:text-slate-200">
           ${data.highlights.map(item => `
             <li class="flex items-start gap-2">
-              <span class="text-blue-600 dark:text-blue-400 font-bold">•</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
               <span>${item}</span>
             </li>
           `).join('')}
@@ -145,10 +147,10 @@ function openProjectModal(key) {
       </div>
 
       <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-end gap-3">
-        <button onclick="closeProjectModal()" class="px-4 py-2 rounded-xl text-xs font-semibold border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+        <button onclick="closeProjectModal()" class="px-4 py-2 rounded-xl text-xs font-semibold border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-slate-800 transition-colors">
           Close
         </button>
-        <a href="${data.githubUrl}" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-colors flex items-center gap-1.5">
+        <a href="${data.githubUrl}" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 transition-all flex items-center gap-1.5">
           <span>GitHub Repository</span>
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
@@ -164,11 +166,14 @@ function closeProjectModal() {
   modal.classList.add('hidden');
 }
 
-document.getElementById('project-modal').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('project-modal')) {
-    closeProjectModal();
-  }
-});
+const modalEl = document.getElementById('project-modal');
+if (modalEl) {
+  modalEl.addEventListener('click', (e) => {
+    if (e.target === modalEl) {
+      closeProjectModal();
+    }
+  });
+}
 
 // 5. Copy Text Utility
 function copyText(text) {
@@ -183,14 +188,16 @@ function copyText(text) {
 const contactForm = document.getElementById('contact-form');
 const toastSuccess = document.getElementById('toast-success');
 
-contactForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  toastSuccess.classList.remove('hidden');
-  toastSuccess.classList.add('flex');
-  contactForm.reset();
+if (contactForm && toastSuccess) {
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    toastSuccess.classList.remove('hidden');
+    toastSuccess.classList.add('flex');
+    contactForm.reset();
 
-  setTimeout(() => {
-    toastSuccess.classList.add('hidden');
-    toastSuccess.classList.remove('flex');
-  }, 5000);
-});
+    setTimeout(() => {
+      toastSuccess.classList.add('hidden');
+      toastSuccess.classList.remove('flex');
+    }, 5000);
+  });
+}

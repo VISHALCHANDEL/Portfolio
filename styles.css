@@ -1,50 +1,57 @@
-/* Custom Styles for Portfolio Website */
+/* Custom Nature Theme & Animation Styles for Vishal Chandel's Portfolio */
 
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom Scrollbar */
+/* Custom Nature Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #f1f5f0;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #0f172a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(156, 163, 175, 0.4);
-  border-radius: 4px;
+  background: #10b981;
+  border-radius: 5px;
+  border: 2px solid #f1f5f0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(156, 163, 175, 0.7);
+  background: #059669;
 }
 
 /* Active Filter Button State */
 .filter-btn.active {
-  background-color: #2563eb !important;
+  background-color: #059669 !important;
   color: #ffffff !important;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
 }
 
-/* Card Hover Elevation */
-.project-card {
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+/* Card Hover Elevation & Nature Glow */
+.project-card, .nature-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
-.project-card:hover {
-  transform: translateY(-4px);
+.project-card:hover, .nature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px -8px rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.3);
 }
 
-/* Fade-in Animation */
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -53,5 +60,85 @@ html {
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Leaf Sway & Organic Float Animations */
+@keyframes leafFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-12px) rotate(6deg) scale(1.03);
+  }
+}
+
+@keyframes leafFloatReverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-16px) rotate(-8deg) scale(1.05);
+  }
+}
+
+@keyframes naturePulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.08);
+  }
+}
+
+.animate-leaf-float {
+  animation: leafFloat 7s ease-in-out infinite;
+}
+
+.animate-leaf-reverse {
+  animation: leafFloatReverse 9s ease-in-out infinite;
+}
+
+.animate-nature-pulse {
+  animation: naturePulse 6s ease-in-out infinite;
+}
+
+/* Shimmer Light effect for CTA buttons */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.btn-nature-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-nature-glow::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 70%
+  );
+  transform: rotate(30deg);
+  transition: transform 0.8s;
+  opacity: 0;
+}
+
+.btn-nature-glow:hover::after {
+  opacity: 1;
+  transform: rotate(30deg) translate(20%, 20%);
 }
